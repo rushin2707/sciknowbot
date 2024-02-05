@@ -1,0 +1,67 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e1e1e; /* Dark background color */
+    color: #fff; /* Text color */
+}
+
+.chat-container {
+    max-width: 400px;
+    margin: 20px auto;
+    border: 1px solid #444; /* Dark border color */
+    padding: 10px;
+    border-radius: 8px; /* Slightly rounded corners */
+    background-color: #2a2a2a; /* Dark container background color */
+}
+
+.chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    border-bottom: 1px solid #444;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+#userInput {
+    width: 70%;
+    padding: 10px;
+    background-color: #444; /* Input background color */
+    color: #fff;
+    border: 1px solid #555; /* Input border color */
+    border-radius: 5px;
+    outline: none; /* Remove input focus border */
+    transition: background-color 0.3s ease;
+}
+
+#userInput:hover, #userInput:focus {
+    background-color: #555; /* Input background color on hover/focus */
+}
+
+#sendButton {
+    padding: 10px;
+    background-color: #007bff; /* Initial button background color */
+    color: #ccc; /* Initial button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed; /* Default cursor */
+    transition: background-color 0.3s ease;
+}
+
+#sendButton:hover {
+    background-color: #0056b3; /* Darker button background color on hover */
+}
+
+#sendButton.active {
+    cursor: pointer; /* Change cursor to pointer when button is active */
+    background-color: #004080; /* Darker button background color when active */
+    color: #fff; /* Darker button text color when active */
+}
+
+/* Styling for user message */
+.you {
+    color: #007bff; /* Blue font color for "You" */
+}
+
+/* Styling for bot message */
+.bot {
+    color: #dc3545; /* Red font color for "Bot" */
+}

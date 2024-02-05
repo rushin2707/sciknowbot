@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>SciKnowTech Chatbot</title>
+    <style>
+        /* Embed your CSS styles here */
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox"></div>
+        <input type="text" id="userInput" placeholder="Type your message..." onkeydown="handleKeyPress(event)">
+        <button id="sendButton" onclick="sendMessage()" class="active">&#10148;</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                // Simulate a click on the send button when Enter is pressed
+                event.preventDefault();
+                if ($('#sendButton').hasClass('active')) {
+                    sendMessage();
+                }
+            }
+        }
+
+        function sendMessage() {
+            var userInput = $('#userInput').val().trim();
+            if (userInput === '') return;
+
+            var chatBox = $('#chatBox');
+
+            // Remove the line that appends user message here
+
+            var userMessage = '<div class="you"><strong>You:</strong> ' + userInput + '</div>';
+            chatBox.append(userMessage);
+
+
+            // Send the user message to the backend
+            $.ajax({
+                type: 'POST',
+                url: '/api/messages',
+                contentType: 'application/json;charset=UTF-8',
+                data: JSON.stringify({ 'userInput': userInput }),
+                success: function (response) {
+                    // Wait for a second before displaying the bot response
+                    setTimeout(function () {
+                        // Display the entire bot response at once
+                        var botResponse = '<div class="bot"><strong>SciKnowBot:</strong> ' + response.botResponse + '</div>';
+                        chatBox.append(botResponse);
+
+                        // Scroll to the bottom of the chat box
+                        chatBox.scrollTop(chatBox[0].scrollHeight);
+                    }, 1000); // Adjust the delay time as needed
+                }
+            });
+
+            // Clear the input field after sending the message
+            $('#userInput').val('');
+        }
+
+        // Enable/disable send button based on text input
+        $('#userInput').on('input', function() {
+            var sendButton = $('#sendButton');
+            if ($(this).val().trim() === '') {
+                sendButton.removeClass('active');
+            } else {
+                sendButton.addClass('active');
+            }
+        });
+    </script>
+</body>
+</html> 
